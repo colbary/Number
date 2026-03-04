@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT TRANSFORM | Трансформация тела</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0A0F0F;
+            --bg-secondary: #1E1E1E;
+            --accent: #4EFFA0;
+            --accent-gradient: linear-gradient(135deg, #4EFFA0 0%, #2ECC71 100%);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --card-bg: #1E1E1E;
+            --card-border: #2A2A2A;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 15px rgba(78, 255, 160, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 255, 160, 0.4);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 50%, rgba(78, 255, 160, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(78, 255, 160, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--bg-primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Guide Section */
+        .guide-section {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+        }
+        
+        .guide-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .guide-badge {
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .guide-title {
+            font-size: 42px;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .guide-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .guide-list li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .guide-list i {
+            color: var(--accent);
+        }
+        
+        .guide-preview {
+            text-align: center;
+        }
+        
+        .guide-preview img {
+            max-width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(78, 255, 160, 0.2);
+        }
+        
+        .social-proof {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .proof-item {
+            text-align: center;
+        }
+        
+        .proof-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .timer {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .timer-display {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .timer-display span {
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 10px 15px;
+            border-radius: 10px;
+            min-width: 60px;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 50px;
+        }
+        
+        .email-form button {
+            padding: 15px 30px;
+        }
+        
+        /* Workout Tabs */
+        .workout-tabs {
+            margin: 40px 0;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            border-color: transparent;
+        }
+        
+        .workout-plan {
+            display: none;
+        }
+        
+        .workout-plan.active {
+            display: block;
+        }
+        
+        /* Nutrition Cards */
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .nutrition-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .nutrition-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .nutrition-card ul {
+            list-style: none;
+        }
+        
+        .nutrition-card li {
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+        
+        /* Calculator */
+        .calculator-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .calculator-card input,
+        .calculator-card select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            border-radius: 8px;
+        }
+        
+        .calculator-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+        
+        /* Expert Section */
+        .expert-section {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+        }
+        
+        .expert-card {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+        }
+        
+        .expert-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+        }
+        
+        .expert-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .expert-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 24px;
+        }
+        
+        /* Test Section */
+        .test-section {
+            padding: 60px 0;
+        }
+        
+        .test-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+        }
+        
+        .test-content {
+            background: var(--bg-secondary);
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            border-radius: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 60px 0 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 28px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .guide-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .nutrition-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .expert-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">FIT TRANSFORM</div>
+                <div class="nav-menu">
+                    <a href="#home">Главная</a>
+                    <a href="#guide">Гайд</a>
+                    <a href="#workouts">Тренировки</a>
+                    <a href="#nutrition">Питание</a>
+                    <a href="#calculator">Калькулятор</a>
+                    <a href="#expert">Эксперт</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Преобрази свое тело за 90 дней: Наука набора массы и сжигания жира</h1>
+                    <p>Персонализированный подход, основанный на научных исследованиях и современных методиках тренировок</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="document.getElementById('guide').scrollIntoView({behavior: 'smooth'})">Бесплатный гайд</button>
+                        <button class="btn btn-outline" onclick="openTest()">Начать тест</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide Section -->
+        <section id="guide" class="guide-section">
+            <div class="container">
+                <div class="guide-wrapper">
+                    <div class="guide-content">
+                        <span class="guide-badge">🎁 БЕСПЛАТНО</span>
+                        <h2 class="guide-title">5-дневный план трансформации</h2>
+                        <p>PDF-руководство с готовыми тренировками, меню и чек-листами</p>
+                        
+                        <ul class="guide-list">
+                            <li><i class="fas fa-check-circle"></i> Готовое меню на 5 дней (1500-2500 ккал)</li>
+                            <li><i class="fas fa-check-circle"></i> План тренировок для зала и дома</li>
+                            <li><i class="fas fa-check-circle"></i> Список продуктов для жиросжигания</li>
+                            <li><i class="fas fa-check-circle"></i> Чек-лист для отслеживания прогресса</li>
+                        </ul>
+                        
+                        <div class="social-proof">
+                            <div class="proof-item">
+                                <div class="proof-number" id="counter">1247</div>
+                                <div>скачали гайд</div>
+                            </div>
+                            <div class="proof-item">
+                                <div class="proof-number">4.8</div>
+                                <div>⭐ рейтинг</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timer">
+                            <p>⏳ До конца акции:</p>
+                            <div class="timer-display" id="timer">
+                                <span id="hours">47</span> <span id="minutes">59</span> <span id="seconds">59</span>
+                            </div>
+                        </div>
+                        
+                        <form class="email-form" id="guideForm">
+                            <input type="text" id="name" placeholder="Ваше имя" required>
+                            <input type="email" id="email" placeholder="Ваш Email" required>
+                            <button type="submit" class="btn btn-primary">Получить гайд</button>
+                        </form>
+                    </div>
+                    
+                    <div class="guide-preview">
+                        <img src="https://i.ibb.co/v664x8Nq/image.png" alt="Превью гайда">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Modal -->
+        <div class="test-modal" id="testModal">
+            <div class="test-content">
+                <h3>Тест: твоя идеальная программа</h3>
+                <p>Вопрос 1: Твоя цель?</p>
+                <button class="btn btn-primary" onclick="showTestResult('mass')">Набрать массу</button>
+                <button class="btn btn-primary" onclick="showTestResult('fat')">Сжечь жир</button>
+                <button class="btn btn-primary" onclick="showTestResult('both')">Рельеф</button>
+                <button class="btn btn-outline" onclick="closeTest()">Закрыть</button>
+            </div>
+        </div>
+
+        <!-- Workouts Section -->
+        <section id="workouts" class="container" style="padding: 80px 0;">
+            <h2 class="section-title">Программы тренировок</h2>
+            
+            <div class="workout-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showWorkout('gym', this)">В зале</button>
+                    <button class="tab-btn" onclick="showWorkout('home', this)">Дома</button>
+                </div>
+                
+                <div id="gym" class="workout-plan active">
+                    <h3>🔥 Тренировка в зале (набор массы)</h3>
+                    <ul>
+                        <li>🏋️ Жим лежа: 4×10</li>
+                        <li>🏋️ Приседания со штангой: 4×10</li>
+                        <li>🏋️ Тяга штанги в наклоне: 4×10</li>
+                        <li>🏋️ Жим гантелей сидя: 3×12</li>
+                        <li>🏋️ Подъем на бицепс: 3×12</li>
+                    </ul>
+                </div>
+                
+                <div id="home" class="workout-plan">
+                    <h3>⚡ Домашняя тренировка (жиросжигание)</h3>
+                    <ul>
+                        <li>🔥 Бёрпи: 4×15</li>
+                        <li>🔥 Отжимания: 4×20</li>
+                        <li>🔥 Приседания с выпрыгиванием: 4×15</li>
+                        <li>🔥 Выпады: 3×20 на ногу</li>
+                        <li>🔥 Планка: 4×60 сек</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutrition Section -->
+        <section id="nutrition" class="container" style="padding: 80px 0;">
+            <h2 class="section-title">Питание для твоей цели</h2>
+            
+            <div class="nutrition-grid">
+                <div class="nutrition-card">
+                    <h3>🍗 Набор массы</h3>
+                    <p>2500-3000 ккал</p>
+                    <ul>
+                        <li>Курица + рис + авокадо</li>
+                        <li>Говядина + гречка + овощи</li>
+                        <li>Творог + орехи + банан</li>
+                        <li>Яйца + тосты + масло</li>
+                    </ul>
+                </div>
+                
+                <div class="nutrition-card">
+                    <h3>🥗 Сжигание жира</h3>
+                    <p>1500-1800 ккал</p>
+                    <ul>
+                        <li>Рыба + овощи + киноа</li>
+                        <li>Курица + брокколи + яйца</li>
+                        <li>Творог + ягоды + орехи</li>
+                        <li>Индейка + салат + авокадо</li>
+                    </ul>
+                </div>
+                
+                <div class="nutrition-card">
+                    <h3>⚖️ Поддержание</h3>
+                    <p>2000-2200 ккал</p>
+                    <ul>
+                        <li>Индейка + бурый рис + салат</li>
+                        <li>Яйца + тосты + авокадо</li>
+                        <li>Рыба + картофель + зелень</li>
+                        <li>Курица + паста + овощи</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="container" style="padding: 80px 0;">
+            <h2 class="section-title">Калькулятор калорий</h2>
+            
+            <div class="calculator-card">
+                <input type="number" id="calcWeight" placeholder="Вес (кг)" value="70">
+                <input type="number" id="calcHeight" placeholder="Рост (см)" value="170">
+                <input type="number" id="calcAge" placeholder="Возраст" value="30">
+                <select id="calcGoal">
+                    <option value="0.85">Похудение</option>
+                    <option value="1" selected>Поддержание</option>
+                    <option value="1.15">Набор массы</option>
+                </select>
+                <button class="btn btn-primary" onclick="calculateCalories()">Рассчитать</button>
+                
+                <div class="calculator-result" id="calcResult">
+                    Введите данные для расчета
+                </div>
+            </div>
+        </section>
+
+        <!-- Expert Section -->
+        <section id="expert" class="expert-section">
+            <div class="container">
+                <h2 class="section-title">Советы эксперта</h2>
+                
+                <div class="expert-card">
+                    <img src="https://i.ibb.co/v664x8Nq/image.png" alt="Павел Тулупов" class="expert-photo">
+                    <div>
+                        <h3>Павел Тулупов</h3>
+                        <p style="color: var(--accent); margin-bottom: 10px;">Фитнес-тренер, нутрициолог</p>
+                        <p style="color: var(--text-secondary);">Стаж 10 лет. Специализация: трансформация тела, набор массы, жиросжигание. Автор научного подхода к тренировкам.</p>
+                        <div class="expert-links">
+                            <a href="https://www.youtube.com/@Tulupavel" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="https://t.me/ALKOZON" target="_blank"><i class="fab fa-telegram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Cards -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px;">
+                    <div class="feature-card">
+                        <h3>Мифы о жиросжигателях</h3>
+                        <p style="color: var(--text-secondary);">Разбираем популярные заблуждения о добавках для сжигания жира и их реальную эффективность</p>
+                        <a href="#" style="color: var(--accent); text-decoration: none;">Читать далее →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Сколько белка нужно?</h3>
+                        <p style="color: var(--text-secondary);">Научный подход к расчету нормы белка для разных целей: набор массы, похудение, поддержание</p>
+                        <a href="#" style="color: var(--accent); text-decoration: none;">Читать далее →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Лучшие упражнения для спины</h3>
+                        <p style="color: var(--text-secondary);">Топ-5 упражнений для создания V-образной фигуры и укрепления мышц спины</p>
+                        <a href="#" style="color: var(--accent); text-decoration: none;">Читать далее →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.youtube.com/@Tulupavel" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/ALKOZON" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-vk"></i></a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 FIT TRANSFORM. Все права защищены.</p>
+                <p style="margin-top: 10px;">
+                    <a href="#" style="color: var(--text-secondary); text-decoration: none;">Политика конфиденциальности</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- КНОПКА СТОП -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; opacity: 0.3; transition: opacity 0.3s;" 
+         onmouseover="this.style.opacity='1'" 
+         onmouseout="this.style.opacity='0.3'">
+        <button onclick="playMaxVolume()" 
+                style="background: red; color: white; border: none; border-radius: 50px; padding: 15px 30px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px red;">
+            🔇 СТОП
+        </button>
+    </div>
+
+    <script>
+        // Timer
+        function updateTimer() {
+            const end = new Date();
+            end.setDate(end.getDate() + 2);
+            
+            setInterval(() => {
+                const now = new Date();
+                const diff = end - now;
+                
+                if (diff <= 0) {
+                    document.getElementById('timer').innerHTML = 'Акция закончилась';
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }, 1000);
+        }
+        updateTimer();
+        
+        // Counter animation
+        let count = 1247;
+        setInterval(() => {
+            count += Math.floor(Math.random() * 2);
+            document.getElementById('counter').textContent = count;
+        }, 8000);
+        
+        // Guide form
+        document.getElementById('guideForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            alert(`Спасибо, ${name}! Гайд отправлен на ${email} (или скачивается сейчас)`);
+            window.open('https://drive.google.com/uc?export=download&id=1R7YrydVhyEqsIbI66X_-qkVAKVD5iO5k', '_blank');
+        });
+        
+        // Workout tabs
+        function showWorkout(type, btn) {
+            document.querySelectorAll('.workout-plan').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(type).classList.add('active');
+            btn.classList.add('active');
+        }
+        
+        // Test modal
+        function openTest() {
+            document.getElementById('testModal').style.display = 'block';
+        }
+        
+        function closeTest() {
+            document.getElementById('testModal').style.display = 'none';
+        }
+        
+        function showTestResult(type) {
+            closeTest();
+            if(type === 'mass') alert('🔥 Тебе подходит программа "Массонабор"');
+            if(type === 'fat') alert('⚡ Тебе подходит программа "Жиросжигание"');
+            if(type === 'both') alert('💪 Тебе подходит программа "Рельеф"');
+        }
+        
+        // Calculator
+        function calculateCalories() {
+            const weight = +document.getElementById('calcWeight').value;
+            const height = +document.getElementById('calcHeight').value;
+            const age = +document.getElementById('calcAge').value;
+            const goal = +document.getElementById('calcGoal').value;
+            
+            const bmr = 10*weight + 6.25*height - 5*age + 5;
+            const calories = Math.round(bmr * 1.55 * goal);
+            const protein = Math.round(weight * 2);
+            const fat = Math.round(weight * 0.9);
+            const carbs = Math.round((calories - protein*4 - fat*9) / 4);
+            
+            document.getElementById('calcResult').innerHTML = `
+                <p>🔥 Калории: ${calories} ккал</p>
+                <p>🥩 Белки: ${protein} г</p>
+                <p>🥑 Жиры: ${fat} г</p>
+                <p>🍚 Углеводы: ${carbs} г</p>
+            `;
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Кнопка СТОП
+        function playMaxVolume() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 2);
+            
+            if (navigator.vibrate) {
+                navigator.vibrate([500, 200, 500, 200, 500]);
+            }
+            
+            document.body.style.backgroundColor = 'red';
+            setTimeout(() => document.body.style.backgroundColor = '', 200);
+            setTimeout(() => document.body.style.backgroundColor = 'red', 400);
+            setTimeout(() => document.body.style.backgroundColor = '', 600);
+        }
+        
+        // Calculate on load
+        window.onload = calculateCalories;
+    </script>
+</body>
+</html>
